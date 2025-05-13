@@ -1,0 +1,4 @@
+# Normal Packages
+uv
+fastapi
+uvicorn[standard]

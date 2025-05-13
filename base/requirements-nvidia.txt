@@ -1,0 +1,28 @@
+# Jetson Wheels from https://pypi.jetson-ai-lab.dev/jp6/cu128
+# PyPi Index URL https://pypi.jetson-ai-lab.dev/jp6/cu128/+simple
+
+## Torch
+torch
+torchvision
+torchaudio
+
+## Video
+decord # https://pypi.jetson-ai-lab.dev/jp6/cu128/decord/
+
+## Vision
+opencv-python
+opencv-contrib-python
+
+## Frameworks
+vllm
+
+## Runtimes
+ctranslate2
+llama-cpp-python
+transformer-engine
+onnxruntime-gpu
+
+## Accelerators
+flash-attn
+xformers
+triton
