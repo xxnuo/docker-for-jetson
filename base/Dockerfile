@@ -22,7 +22,12 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install --force-reinstall -r requirements-nvidia.txt -i https://pypi.jetson-ai-lab.dev/jp6/cu128/+simple
 
 # Install Ollama
-COPY install-ollama.sh /tmp/
-RUN /tmp/install-ollama.sh
+ENV OLLAMA_VERSION=0.7.0
+ENV JETPACK_VERSION_MAJOR=6
+ENV WGET_FLAGS="--no-check-certificate --quiet --show-progress --progress=bar:force:noscroll"
+RUN --mount=type=bind,source=.,target=/ollama-downloader \
+    cd /ollama-downloader && \
+    chmod +x ./install-ollama.sh && \
+    ./install-ollama.sh
 
 CMD ["pip3", "list"]
