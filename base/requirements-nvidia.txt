@@ -26,3 +26,4 @@ onnxruntime-gpu
 flash-attn
 xformers
 triton
+flashinfer
