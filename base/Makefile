@@ -3,8 +3,8 @@ UV := ~/.local/bin/uv
 CURL := $(shell if command -v axel >/dev/null 2>&1; then echo "axel"; else echo "curl"; fi)
 REMOTE := nvidia@gpu
 REMOTE_PATH := ~/work/docker-for-jetson/base
-DOCKER_REGISTRY := docker-for-jetson/base
-DOCKER_NAME := docker-for-jetson-base
+DOCKER_REGISTRY := registry.lazycat.cloud/x/aipod/base
+DOCKER_NAME := aipod-base
 ENV_PROXY := http://192.168.1.200:7890
 
 sync-from-jetson:
@@ -52,5 +52,24 @@ push: build
 	ssh -t $(REMOTE) "cd $(REMOTE_PATH) && \
 		docker push $(DOCKER_REGISTRY):$(VERSION) && \
 		docker push $(DOCKER_REGISTRY):latest"
+
+build-arm:
+	docker build \
+		-f Dockerfile \
+		-t $(DOCKER_REGISTRY):$(VERSION) \
+		-t $(DOCKER_REGISTRY):latest \
+		--network host \
+		--build-arg "HTTP_PROXY=$(ENV_PROXY)" \
+		--build-arg "HTTPS_PROXY=$(ENV_PROXY)" \
+		--build-arg "ALL_PROXY=$(ENV_PROXY)" \
+		--build-arg "http_proxy=$(ENV_PROXY)" \
+		--build-arg "https_proxy=$(ENV_PROXY)" \
+		--build-arg "all_proxy=$(ENV_PROXY)" \
+		--build-arg "NO_PROXY=localhost,192.168.1.200" \
+		.
+
+push-arm: build-arm
+	docker push $(DOCKER_REGISTRY):$(VERSION) && \
+	docker push $(DOCKER_REGISTRY):latest
 
 .PHONY: build test inspect push sync-from-jetson sync-to-jetson sync-clean
