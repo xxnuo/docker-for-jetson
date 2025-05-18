@@ -141,6 +141,7 @@ def read_packages():
 def get_package_page(base_url, package):
     """获取包的页面URL"""
     url = urljoin(base_url, package)
+    logging.info(f"正在获取包页面: {url}")
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -154,11 +155,15 @@ def get_wheel_urls(page_content, base_url):
     """解析页面内容获取wheel文件的URL"""
     soup = BeautifulSoup(page_content, "html.parser")
     links = soup.find_all("a")
-    return [
+    wheel_urls = [
         urljoin(base_url, link["href"])
         for link in links
-        if link["href"].endswith(".whl")
+        if link.get("href", "").endswith(".whl")
     ]
+    logging.info(f"找到 {len(wheel_urls)} 个wheel文件")
+    if not wheel_urls:
+        logging.debug(f"页面内容: {page_content[:500]}...")
+    return wheel_urls
 
 
 def main():
