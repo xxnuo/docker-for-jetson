@@ -12,7 +12,7 @@ function download_tar() {
   fi
   printf "Extracting $1 to /usr/local\n\n"
   tar -xzvf $1 -C /usr/local
-  # rm ollama-*.tgz
+  # rm ollama-*.tgz # Read only file system
 }
 
 download_tar "ollama-linux-arm64.tgz"
