@@ -1,11 +1,11 @@
-ai-dynamo
-ai-dynamo-runtime
+# ai-dynamo
+# ai-dynamo-runtime
 awq
 awq-inference-engine
 bitsandbytes
 causal-conv1d
-coacd
-cpufeature
+# coacd
+# cpufeature
 ctranslate2
 cuda-bindings
 cuda-core
@@ -44,14 +44,14 @@ pycolmap
 pymeshlab
 pytorch3d
 sageattention
-sgl-kernel
+# sgl-kernel
 sglang
 spas-sage-attn
 taichi
 threedgrut
 tinycudann
 torch
-torchao
+# torchao
 torchaudio
 torchvision
 transformer-engine
