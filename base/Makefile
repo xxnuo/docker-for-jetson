@@ -104,5 +104,6 @@ inspect-arm:
 push-arm: build-arm
 	docker push $(DOCKER_REGISTRY):$(VERSION) && \
 	docker push $(DOCKER_REGISTRY):latest
+	@echo "Push completed!"
 
 .PHONY: build test inspect push sync-from-jetson sync-to-jetson sync-clean

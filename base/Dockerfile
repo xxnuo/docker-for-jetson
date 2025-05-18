@@ -25,7 +25,9 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 ENV OLLAMA_VERSION=0.7.0
 ENV JETPACK_VERSION_MAJOR=6
 
-RUN --mount=type=bind,source=./,target=/ollama-downloader \
+RUN --mount=type=bind,source=./ollama-linux-arm64.tgz,target=/ollama-downloader/ollama-linux-arm64.tgz \
+    --mount=type=bind,source=./ollama-linux-arm64-jetpack6.tgz,target=/ollama-downloader/ollama-linux-arm64-jetpack6.tgz \
+    --mount=type=bind,source=./install-ollama.sh,target=/ollama-downloader/install-ollama.sh \
     cd /ollama-downloader && \
     bash install-ollama.sh
 
