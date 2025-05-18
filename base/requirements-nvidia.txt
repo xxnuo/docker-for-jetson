@@ -27,3 +27,6 @@ flash-attn
 xformers
 triton
 flashinfer-python
+
+# Diffusion
+diffusers

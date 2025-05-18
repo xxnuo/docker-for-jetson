@@ -18,4 +18,6 @@ ENV PORT=9997
 ENV XINFERENCE_MODEL_SRC=modelscope
 ENV HUGGING_FACE_HUB_TOKEN=
 
+EXPOSE ${PORT}
+
 CMD xinference-local --host ${HOST} --port ${PORT}
