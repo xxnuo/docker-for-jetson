@@ -19,10 +19,10 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Install Jetson Packages
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements-nvidia.txt,target=requirements-nvidia.txt \
-    pip3 install -r requirements-nvidia.txt -i https://pypi.jetson-ai-lab.dev/jp6/cu128/+simple
+    pip3 install --force-reinstall -r requirements-nvidia.txt -i https://pypi.jetson-ai-lab.dev/jp6/cu128/+simple
 
 # Install Ollama
-COPY install-ollama.sh $TMP/
-RUN $TMP/install-ollama.sh
+COPY install-ollama.sh /tmp/
+RUN /tmp/install-ollama.sh
 
 CMD ["pip3", "list"]
