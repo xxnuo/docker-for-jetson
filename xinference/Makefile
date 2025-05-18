@@ -56,23 +56,6 @@ push: build
 		docker push $(DOCKER_REGISTRY):$(VERSION) && \
 		docker push $(DOCKER_REGISTRY):latest"
 
-download-ollama-arm:
-	@echo "Downloading Ollama ARM version..."
-	@if [ -z "$(OLLAMA_VERSION)" ]; then \
-		echo "Error: OLLAMA_VERSION is not set"; \
-		exit 1; \
-	fi
-	@if [ -z "$(JETPACK_VERSION_MAJOR)" ]; then \
-		echo "Error: JETPACK_VERSION_MAJOR is not set"; \
-		exit 1; \
-	fi
-	@OLLAMA_RELEASE_URL="https://github.com/ollama/ollama/releases/download/v$(OLLAMA_VERSION)"; \
-	for file in "ollama-linux-arm64.tgz" "ollama-linux-arm64-jetpack$(JETPACK_VERSION_MAJOR).tgz"; do \
-		echo "Downloading $${file}..."; \
-		$(DOWNLOAD_TOOL) "$${OLLAMA_RELEASE_URL}/$${file}" || exit 1; \
-	done
-	@echo "Ollama ARM version download completed!"
-
 build-arm:
 	docker build \
 		-f Dockerfile \
