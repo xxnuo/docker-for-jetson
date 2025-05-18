@@ -1,2 +1,6 @@
 # Normal Packages
-xinference[all]
+# xinference[all] # 有 BUG，暂时不安装
+
+xinference[transformers]
+xinference[vllm]
+xinference[sglang]
