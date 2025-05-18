@@ -1,3 +1,2 @@
 # Normal Packages
-versioneer
 xinference[all]

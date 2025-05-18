@@ -6,9 +6,10 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install -r requirements-pypi.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 # Install Platform Packages
-RUN --mount=type=cache,target=/root/.cache/pip \
-    --mount=type=bind,source=requirements-platform.txt,target=requirements-platform.txt \
-    pip3 install -r requirements-platform.txt -i https://xorbitsai.github.io/xllamacpp/whl/cu124
+# CUDA 版本暂时有 BUG，暂时不安装 xllamacpp
+# RUN --mount=type=cache,target=/root/.cache/pip \
+#     --mount=type=bind,source=requirements-platform.txt,target=requirements-platform.txt \
+#     pip3 install -r requirements-platform.txt -i https://xorbitsai.github.io/xllamacpp/whl/cu124
 
 RUN mkdir -p /app/.xinference
 
