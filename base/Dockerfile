@@ -27,7 +27,6 @@ ENV JETPACK_VERSION_MAJOR=6
 ENV WGET_FLAGS="--no-check-certificate --quiet --show-progress --progress=bar:force:noscroll"
 RUN --mount=type=bind,source=.,target=/ollama-downloader \
     cd /ollama-downloader && \
-    chmod +x ./install-ollama.sh && \
-    ./install-ollama.sh
+    sh ./install-ollama.sh
 
 CMD ["pip3", "list"]
