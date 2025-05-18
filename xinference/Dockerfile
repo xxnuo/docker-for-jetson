@@ -2,14 +2,14 @@ FROM registry.lazycat.cloud/x/aipod/base:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-key adv --fetch-keys https://repo.download.nvidia.com/jetson/jetson-ota-public.asc
-RUN echo "deb https://repo.download.nvidia.com/jetson/ffmpeg main main" | tee -a /etc/apt/sources.list
-RUN sed -i 's/ports.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources
+# RUN apt-key adv --fetch-keys https://repo.download.nvidia.com/jetson/jetson-ota-public.asc
+# RUN echo "deb https://repo.download.nvidia.com/jetson/ffmpeg main main" | tee -a /etc/apt/sources.list
+# RUN sed -i 's/ports.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources
 
-RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=type=cache,target=/var/lib/apt/lists \
-    apt-get update && \
-    apt-get install -y --no-install-recommends curl ffmpeg python3-dev
+# RUN --mount=type=cache,target=/var/cache/apt \
+#     --mount=type=cache,target=/var/lib/apt/lists \
+#     apt-get update && \
+#     apt-get install -y --no-install-recommends curl ffmpeg python3-dev
 
 # Install PyPi Packages
 RUN --mount=type=cache,target=/root/.cache/pip \
@@ -36,4 +36,13 @@ ENV JETPACK_VERSION_MAJOR=6
 #     cd /ollama-downloader && \
 #     bash install-ollama.sh
 
-CMD ["pip3", "list"]
+# CMD ["pip3", "list"]
+
+RUN mkdir -p /app/.xinference
+
+ENV XINFERENCE_HOME=/app/.xinference
+ENV XINFERENCE_HOST=0.0.0.0
+ENV XINFERENCE_PORT=9997
+ENV XINFERENCE_MODEL_SRC=modelscope
+
+CMD ["xinference-local"]
