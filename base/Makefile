@@ -88,6 +88,19 @@ build-arm:
 		--build-arg "NO_PROXY=localhost,192.168.1.200" \
 		.
 
+test-arm:
+	docker run -it --rm \
+		--name $(DOCKER_NAME) \
+		--network host \
+		$(DOCKER_REGISTRY):latest
+
+inspect-arm:
+	docker run -it --rm \
+		--name $(DOCKER_NAME) \
+		--network host \
+		$(DOCKER_REGISTRY):latest \
+		bash
+
 push-arm: build-arm
 	docker push $(DOCKER_REGISTRY):$(VERSION) && \
 	docker push $(DOCKER_REGISTRY):latest
