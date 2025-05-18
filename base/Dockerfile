@@ -24,9 +24,9 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Install Ollama
 ENV OLLAMA_VERSION=0.7.0
 ENV JETPACK_VERSION_MAJOR=6
-ENV WGET_FLAGS="--no-check-certificate --quiet --show-progress --progress=bar:force:noscroll"
-RUN --mount=type=bind,source=.,target=/ollama-downloader \
+
+RUN --mount=type=bind,source=./,target=/ollama-downloader \
     cd /ollama-downloader && \
-    bash ./install-ollama.sh
+    bash install-ollama.sh
 
 CMD ["pip3", "list"]

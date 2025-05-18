@@ -5,7 +5,11 @@ OLLAMA_RELEASE_URL="https://github.com/ollama/ollama/releases/download/v${OLLAMA
 
 function download_tar() {
   printf "Downloading ${OLLAMA_RELEASE_URL}/$1\n"
-  wget $WGET_FLAGS "${OLLAMA_RELEASE_URL}/$1"
+  if [ -f "$1" ]; then
+    printf "File $1 already exists\n"
+  else
+    wget $WGET_FLAGS "${OLLAMA_RELEASE_URL}/$1"
+  fi
   printf "Extracting $1 to /usr/local\n\n"
   tar -xzvf $1 -C /usr/local
   rm ollama-*.tgz
