@@ -13,7 +13,8 @@ from bs4 import BeautifulSoup
 
 # 设置日志
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.DEBUG,
+    format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 # 全局常量
@@ -140,29 +141,45 @@ def read_packages():
 
 def get_package_page(base_url, package):
     """获取包的页面URL"""
-    url = urljoin(base_url, package)
+    url = urljoin(base_url, package) + "/"
     logging.info(f"正在获取包页面: {url}")
     try:
         response = requests.get(url)
         response.raise_for_status()
-        return response.text
+        return response.text, url  # 返回页面内容和实际URL
     except requests.RequestException as e:
         logging.error(f"获取包 {package} 的页面失败: {e}")
-        return None
+        return None, None
 
 
-def get_wheel_urls(page_content, base_url):
+def get_wheel_urls(page_content, page_url):
     """解析页面内容获取wheel文件的URL"""
+    if not page_content or not page_url:
+        return []
+        
     soup = BeautifulSoup(page_content, "html.parser")
     links = soup.find_all("a")
-    wheel_urls = [
-        urljoin(base_url, link["href"])
-        for link in links
-        if link.get("href", "").endswith(".whl")
-    ]
+    logging.info(f"找到 {len(links)} 个链接")
+    
+    # 打印所有链接的href属性
+    for link in links:
+        href = link.get("href", "")
+        logging.debug(f"链接: {href}")
+    
+    wheel_urls = []
+    for link in links:
+        href = link.get("href", "")
+        if ".whl" in href:
+            full_url = urljoin(page_url, href)
+            wheel_urls.append(full_url)
+    
     logging.info(f"找到 {len(wheel_urls)} 个wheel文件")
-    if not wheel_urls:
-        logging.debug(f"页面内容: {page_content[:500]}...")
+    if wheel_urls:
+        for url in wheel_urls:
+            logging.debug(f"Wheel文件: {url}")
+    else:
+        logging.debug("页面内容:")
+        logging.debug(page_content[:1000])
     return wheel_urls
 
 
@@ -176,16 +193,16 @@ def main():
     for package in packages:
         logging.info(f"处理包: {package}")
 
-        page_content = get_package_page(base_url, package)
+        page_content, page_url = get_package_page(base_url, package)
         if not page_content:
             continue
 
-        wheel_urls = get_wheel_urls(page_content, base_url)
+        wheel_urls = get_wheel_urls(page_content, page_url)
         if not wheel_urls:
             logging.warning(f"没有找到包 {package} 的wheel文件")
             continue
 
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=16) as executor:
             futures = [
                 executor.submit(download_manager.download_wheel, url)
                 for url in wheel_urls

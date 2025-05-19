@@ -175,3 +175,6 @@ cython_debug/
 
 ollama-*.tgz
 .xinference
+scripts/pypi-downloader/data*
+scripts/pypi-downloader/nohup.out
+scripts/pypi-downloader/download_progress.json
