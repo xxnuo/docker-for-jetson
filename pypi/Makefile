@@ -2,4 +2,5 @@ download:
 	uv run main.py
 
 serve:
-	uv run python -m http.server
+	@echo "Serving pypi on http://localhost:10608/simple/"
+	pypi-server run -p 10608 ./pypi

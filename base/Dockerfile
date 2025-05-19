@@ -19,7 +19,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Install Jetson Packages
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements-nvidia.txt,target=requirements-nvidia.txt \
-    pip3 install -U -r requirements-nvidia.txt -i https://pypi.jetson-ai-lab.dev/jp6/cu128/+simple
+    pip3 install -U -r requirements-nvidia.txt -i http://localhost:10608/simple
 
 # Install Ollama
 ENV OLLAMA_VERSION=0.7.0
