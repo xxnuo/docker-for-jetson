@@ -1,4 +1,4 @@
-FROM dustynv/vllm:0.8.6-r36.4-cu128-24.04
+FROM registry.lazycat.cloud/x/vllm:0.8.6-r36.4-cu128-24.04
 
 # Install PyPi Packages
 RUN --mount=type=cache,target=/root/.cache/pip \
