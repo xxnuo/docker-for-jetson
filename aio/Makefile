@@ -2,9 +2,9 @@ VERSION := $(shell git rev-parse --short HEAD)
 UV := ~/.local/bin/uv
 DOWNLOAD_TOOL := $(shell if command -v axel >/dev/null 2>&1; then echo "axel"; else echo "wget"; fi)
 REMOTE := nvidia@gpu
-REMOTE_PATH := ~/work/docker-for-jetson/base
-DOCKER_REGISTRY := registry.lazycat.cloud/x/aipod/base
-DOCKER_NAME := aipod-base
+REMOTE_PATH := ~/work/docker-for-jetson/aio
+DOCKER_REGISTRY := registry.lazycat.cloud/x/aipod/aio
+DOCKER_NAME := aipod-aio
 ENV_PROXY := http://192.168.1.200:7890
 # Install Ollama
 OLLAMA_VERSION := 0.7.0

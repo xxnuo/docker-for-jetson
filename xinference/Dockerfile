@@ -1,14 +1,8 @@
-FROM registry.lazycat.cloud/x/aipod/base:latest
+FROM dustynv/vllm:0.8.6-r36.4-cu128-24.04
 
 # Install PyPi Packages
-# 社区版能用的就这一个，差评
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install xinference[vllm] -i https://pypi.tuna.tsinghua.edu.cn/simple
-
-# # Install Platform Packages
-# # CUDA 版本有 BUG，暂时不安装
-# RUN --mount=type=cache,target=/root/.cache/pip \
-#     pip3 install xllamacpp -i https://xorbitsai.github.io/xllamacpp/whl/cu124
 
 RUN mkdir -p /app/.xinference
 
