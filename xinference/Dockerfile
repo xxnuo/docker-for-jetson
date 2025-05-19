@@ -4,6 +4,11 @@ FROM dustynv/vllm:0.8.6-r36.4-cu128-24.04
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install xinference[vllm] -i https://pypi.tuna.tsinghua.edu.cn/simple
 
+# Install Jetson Packages
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=requirements-nvidia.txt,target=requirements-nvidia.txt \
+    pip3 install -r requirements-nvidia.txt -i http://localhost:10608/simple
+
 RUN mkdir -p /app/.xinference
 
 ENV XINFERENCE_HOME=/app/.xinference
