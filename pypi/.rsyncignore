@@ -1,0 +1,4 @@
+data/
+pypi/
+*.7z
+*.tar.gz
