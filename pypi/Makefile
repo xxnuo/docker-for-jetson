@@ -24,7 +24,8 @@ serve:
 
 # 停止 PyPI 服务器和浏览器
 stop-serve:
-	kill -9 `cat pypi-server.pid`
-	kill -9 `cat pypi-web.pid`
+	-kill -9 `cat pypi-server.pid` 2>/dev/null || true
+	-kill -9 `cat pypi-web.pid` 2>/dev/null || true
+	@echo "PyPI server and web interface stopped"
 
 .PHONY: sync stop-sync pypi-server pypi-web serve stop-serve
