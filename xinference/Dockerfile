@@ -9,6 +9,11 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements-nvidia.txt,target=requirements-nvidia.txt \
     pip3 install -r requirements-nvidia.txt -i http://localhost:10608/simple
 
+# Install PyPi Packages
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=requirements-pypi.txt,target=requirements-pypi.txt \
+    pip3 install -r requirements-pypi.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+
 RUN mkdir -p /app/.xinference
 
 ENV XINFERENCE_HOME=/app/.xinference
