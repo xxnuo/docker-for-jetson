@@ -41,6 +41,12 @@ This project provides a set of Docker containers optimized for NVIDIA Jetson dev
 
 `registry.lazycat.cloud/x/aipod/xinference:latest`
 
+#### vllm
+
+`registry.lazycat.cloud/x/vllm:0.8.6-r36.4-cu128-24.04`
+
+`registry.lazycat.cloud/x/vllm:latest`
+
 ### 构建容器 | Building the Container
 
 ```bash
