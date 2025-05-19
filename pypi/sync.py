@@ -20,8 +20,10 @@ logging.basicConfig(
 
 # 全局常量
 CHUNK_SIZE = 8192
-PROGRESS_FILE = "download_progress.json"
-DATA_DIR = "data"
+PROGRESS_FILE = "sync/sync_metadata.json"
+PACKAGES_FILE = "sync/packages.txt"
+SOURCE_FILE = "sync/source.txt"
+DATA_DIR = "sync/data"
 PYPI_DIR = "pypi"
 
 
@@ -94,7 +96,7 @@ class DownloadManager:
         try:
             response = requests.head(url)
             return int(response.headers.get("content-length", 0))
-        except:
+        except Exception:
             return 0
 
     def _get_clean_filename(self, url):
@@ -304,13 +306,13 @@ class DownloadManager:
 
 def read_source():
     """读取PyPI源地址"""
-    with open("source.txt", "r") as f:
+    with open(SOURCE_FILE, "r") as f:
         return f.read().strip()
 
 
 def read_packages():
     """读取需要下载的包列表"""
-    with open("packages.txt", "r") as f:
+    with open(PACKAGES_FILE, "r") as f:
         return [line.strip() for line in f if line.strip()]
 
 

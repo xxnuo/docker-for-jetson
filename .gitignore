@@ -173,10 +173,16 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+# 7z files
 *.tgz
 *.tar.gz
+
+# xinference
 .xinference
-pypi/data*
+
+# PyPI files
+*.pid
 pypi/pypi*
-pypi/nohup.out
-pypi/download_progress.json
+pypi/backup/*
+pypi/sync/data/*
+pypi/sync/sync_metadata.json
