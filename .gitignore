@@ -176,7 +176,7 @@ cython_debug/
 *.tgz
 *.tar.gz
 .xinference
-scripts/pypi/data*
-scripts/pypi/pypi*
-scripts/pypi/nohup.out
-scripts/pypi/download_progress.json
+pypi/data*
+pypi/pypi*
+pypi/nohup.out
+pypi/download_progress.json
